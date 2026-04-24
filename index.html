@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Cuenta Regresiva</title>
+    <style>
+        body {
+            /* IMPORTANTE: El nombre del archivo debe ser EXACTAMENTE el que tenés guardado */
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('foto_casamiento.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: white;
+        }
+
+        .card {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px); /* Soporte para iPhone/Safari */
+            padding: 2.5rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: 85%;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-weight: 300;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            margin-bottom: 2rem;
+            color: #efdb9b;
+        }
+
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .unit { display: flex; flex-direction: column; }
+        .number { font-size: 2rem; font-weight: bold; }
+        .label { font-size: 0.6rem; text-transform: uppercase; opacity: 0.8; }
+
+        .quote {
+            margin-top: 2.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-style: italic;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>19 DE DICIEMBRE</h1>
+        
+        <div class="countdown">
+            <div class="unit">
+                <span class="number" id="days">0</span>
+                <span class="label">Días</span>
+            </div>
+            <div class="unit">
+                <span class="number" id="hours">00</span>
+                <span class="label">Hs</span>
+            </div>
+            <div class="unit">
+                <span class="number" id="mins">00</span>
+                <span class="label">Min</span>
+            </div>
+            <div class="unit">
+                <span class="number" id="secs">00</span>
+                <span class="label">Seg</span>
+            </div>
+        </div>
+
+        <p class="quote">"El universo siempre conspira a favor de los que sueñan."<br><strong>— Paulo Coelho</strong></p>
+    </div>
+
+    <script>
+        // Seteamos la fecha objetivo al inicio del día 19
+        const targetDate = new Date('December 19, 2026 00:00:00').getTime();
+
+        function update() {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                document.querySelector('.card').innerHTML = "<h1>¡Llegó el día! ❤️💍</h1>";
+                return;
+            }
+
+            // Math.floor para días asegura que solo cambie al pasar la medianoche
+            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById('secs').innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        }
+
+        setInterval(update, 1000);
+        update();
+    </script>
+</body>
+</html>
